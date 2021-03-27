@@ -1,5 +1,5 @@
-# AESD - Final Project Repository #
-This repository would be containing the final project submissions by Pankaj Solanki for the ECEN 5013 AESD
+# AESD - Final Project Repository - Security System #
+This repository would be containing the final project submissions by Aditya Varshney for the ECEN 5013 AESD
 
 # Repository Overview #
 
