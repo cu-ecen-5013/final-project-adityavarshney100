@@ -11,16 +11,16 @@ endif
 all: aesdclient aesdserver client_test server_test
 
 aesdclient: aesdclient.c
-	$(CC) $(CFLAGS) ${INCLUDES} ${OBJS} aesdclient.c -o aesdclient
+	$(CC) $(CFLAGS) aesdclient.c -o aesdclient $(LDFLAGS)
 
 aesdserver: aesdserver.c
-	$(CC) $(CFLAGS) ${INCLUDES} ${OBJS} aesdserver.c -o aesdserver
+	$(CC) $(CFLAGS) aesdserver.c -o aesdserver $(LDFLAGS)
 
 client_test: client_test.c
-	$(CC) $(CFLAGS) ${INCLUDES} ${OBJS} client_test.c -o client_test
+	$(CC) $(CFLAGS) client_test.c -o client_test $(LDFLAGS)
 
 server_test: server_test.c
-	$(CC) $(CFLAGS) ${INCLUDES} ${OBJS} server_test.c -o server_test
+	$(CC) $(CFLAGS) server_test.c -o server_test $(LDFLAGS)
 
 clean:
 	rm -f *.o aesdclient
