@@ -5,6 +5,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
+
+#include <unistd.h> 
+//#include <string.h> 
+//#include <fcntl.h>
+
+#include <netinet/in.h> 
+
+#include <arpa/inet.h>
+
 #define MAX 80
 #define PORT 8080
 #define SA struct sockaddr
@@ -31,8 +40,8 @@ void func(int sockfd)
 
 int main()
 {
-	int sockfd, connfd;
-	struct sockaddr_in servaddr, cli;
+	int sockfd;
+	struct sockaddr_in servaddr;
 
 	// socket create and varification
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);

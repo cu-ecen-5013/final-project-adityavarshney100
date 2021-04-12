@@ -36,22 +36,22 @@ static void signal_handler ( int signal_number )
 int main(int argc, char *argv[])
 {
 	openlog(NULL,0,LOG_USER);
-	struct addrinfo hints, *res, *p;
+	struct addrinfo hints, *res;
 	int status;
 
 	/*******************/
 	//SIGNAL Handler initialisation
 	struct sigaction new_action;
-	    bool success = true;
+	   // bool success = true;
 	    memset(&new_action,0,sizeof(struct sigaction));
 	    new_action.sa_handler=signal_handler;
 	    if( sigaction(SIGTERM, &new_action, NULL) != 0 ) {
 		perror("Failed");
-		success = false;
+		//success = false;
 	    }
 	    if( sigaction(SIGINT, &new_action, NULL) ) {
 		perror("Failed");
-		success = false;
+		//success = false;
 	    }
 	/*********************/
 
@@ -115,8 +115,8 @@ int main(int argc, char *argv[])
 			break;
 		}
 
-		char *temp_variable;
-		temp_variable = 0;
+		/*char *temp_variable;
+		temp_variable = 0;*/
 		long string_length=0;
 		
 		do

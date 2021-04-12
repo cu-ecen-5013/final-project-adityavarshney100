@@ -17,7 +17,6 @@
 #include <stdbool.h>
 #include <time.h>
 #include <pthread.h>
-#include "queue.h"
 #include <sys/wait.h>
 #include <sys/time.h>
 
@@ -43,6 +42,7 @@ int main(int argc, char *argv[])
 	openlog(NULL,0,LOG_USER);
 	struct addrinfo hints, *res, *temp;
 	int status,i=0,size;
+	char buffer[BUFFER_SIZE];
 
 
 	memset(&hints, 0, sizeof hints);
@@ -60,33 +60,33 @@ int main(int argc, char *argv[])
 /*****************************************************/
 //Leveraged the for loop condition from https://github.com/cu-ecen-5013/final-project-sarayumanagoli
 
-	for(temp = servinfo; temp != NULL; temp = temp->ai_next)
+	for(temp = res; temp != NULL; temp = temp->ai_next)
 	{
-		if(sockfd = socket(temp->ai_family, temp->ai_socktype, temp->ai_protocol)==-1);
-			continue;
-		if(connect(sockfd,tmep->ai_addr,p->ai_addrlen)==-1)
-			continue;
+		if((sockfd=socket(temp->ai_family, temp->ai_socktype, temp->ai_protocol))==-1)
+			{continue;}
+		if(connect(sockfd,temp->ai_addr,temp->ai_addrlen)==-1)
+			{continue;}
 		break;
 	}
 
-	inet_ntop(temp->ai_family, get_in_addr((struct sockaddr *)temp->ai_addr), s, sizeof s);
-	printf("Client connected to %s\n", s);
+	//inet_ntop(temp->ai_family, get_in_addr((struct sockaddr *)temp->ai_addr), s, sizeof s);
+	//printf("Client connected to %s\n", s);
 /*****************************************************/
 	
 	freeaddrinfo(res);
 	
 	while(i<10)
 	{
-		strcpy(buf,"Hi from the client side\n");
-		size = recv(sockfd,buf,BUFFER_SIZE-1,0);
+		strcpy(buffer,"Hi from the client side\n");
+		size = recv(sockfd,buffer,BUFFER_SIZE-1,0);
 		if(size==-1)
 		{
 			perror("recv");
 			exit(1);
 		}
-		buf[size] = '\0';
+		buffer[size] = '\0';
 
-		printf("client: received: %s\n",buf);
+		printf("client: received: %s\n",buffer);
 	}
 
 	close(sockfd);
