@@ -8,7 +8,7 @@ ifeq ($(LDFLAGS),)
 	LDFLAGS = -pthread -lrt
 endif
 
-all: aesdclient aesdserver client_test server_test uart 
+all: aesdclient aesdserver client_test server_test uart_test 
 
 aesdclient: aesdclient.c
 	$(CC) $(CFLAGS) aesdclient.c -o aesdclient $(LDFLAGS)
