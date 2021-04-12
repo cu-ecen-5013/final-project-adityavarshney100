@@ -1,7 +1,7 @@
 /******************************************************************************
  * File: uart-loopback.c
  * Description: Test UART loopback from userspace.
- *
+ *Reference: https://github.com/kushaldalsania/uart-loopback-test/blob/master/uart-loopback.c
  *****************************************************************************/
 
 // Include files

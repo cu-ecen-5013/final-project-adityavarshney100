@@ -26,10 +26,7 @@ uart_test: uart_test.c
 	$(CC) $(CFLAGS) uart_test.c -o uart_test $(LDFLAGS)
 
 clean:
-	rm -f *.o aesdclient
-	rm -f *.o aesdserver
-	rm -f *.o client_test
-	rm -f *.o server_test
-	rm -f *.o uart_test
+	rm -f *.o aesdclient aesdserver client_test server_test uart_test 
+
 
 
