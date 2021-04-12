@@ -8,7 +8,7 @@ ifeq ($(LDFLAGS),)
 	LDFLAGS = -pthread -lrt
 endif
 
-all: aesdclient aesdserver client_test server_test
+all: aesdclient aesdserver client_test server_test uart 
 
 aesdclient: aesdclient.c
 	$(CC) $(CFLAGS) aesdclient.c -o aesdclient $(LDFLAGS)
@@ -22,10 +22,14 @@ client_test: client_test.c
 server_test: server_test.c
 	$(CC) $(CFLAGS) server_test.c -o server_test $(LDFLAGS)
 
+uart_test: uart_test.c
+	$(CC) $(CFLAGS) uart_test.c -o uart_test $(LDFLAGS)
+
 clean:
 	rm -f *.o aesdclient
 	rm -f *.o aesdserver
 	rm -f *.o client_test
 	rm -f *.o server_test
+	rm -f *.o uart_test
 
 
