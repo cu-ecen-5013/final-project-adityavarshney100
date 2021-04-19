@@ -47,7 +47,7 @@ void func(int sockfd)
 		message.mesg_type = 1;
 		msgsnd(msgid,&message,sizeof(message),0);
 		// print buffer which contains the client contents 
-		printf("From client: %s\t To client : ", message.mesg_text); 
+		printf("From client: %s\t", message.mesg_text); 
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
 		} 
 } 
