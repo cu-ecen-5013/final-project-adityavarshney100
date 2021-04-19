@@ -2,6 +2,7 @@
 * Server TCP Program
 * @file - server.c
 * Reference: https://www.geeksforgeeks.org/tcp-server-client-implementation-in-c/
+* https://www.geeksforgeeks.org/ipc-using-message-queues/
 *
 ***************************************************************************************/
 #include <stdio.h> 
