@@ -2,3 +2,12 @@
 *.o
 *.a
 *.so
+
+aesdclient
+aesdserver
+client_test
+server_test
+uart_test
+reader_test
+writer_test
+
