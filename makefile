@@ -8,25 +8,31 @@ ifeq ($(LDFLAGS),)
 	LDFLAGS = -pthread -lrt
 endif
 
-all: aesdclient aesdserver client_test server_test uart_test 
+all: aesdclient aesdserver client_test server_test uart_test reader_test writer_test
 
-aesdclient: aesdclient.c
-	$(CC) $(CFLAGS) aesdclient.c -o aesdclient $(LDFLAGS)
+aesdclient: Test_code/Socket_test_code/aesdclient.c
+	$(CC) $(CFLAGS) Test_code/Socket_test_code/aesdclient.c -o aesdclient $(LDFLAGS)
 
-aesdserver: aesdserver.c
-	$(CC) $(CFLAGS) aesdserver.c -o aesdserver $(LDFLAGS)
+aesdserver: Test_code/Socket_test_code/aesdserver.c
+	$(CC) $(CFLAGS) Test_code/Socket_test_code/aesdserver.c -o aesdserver $(LDFLAGS)
 
-client_test: client_test.c
-	$(CC) $(CFLAGS) client_test.c -o client_test $(LDFLAGS)
+client_test: Test_code/Socket_test_code/client_test.c
+	$(CC) $(CFLAGS) Test_code/Socket_test_code/client_test.c -o client_test $(LDFLAGS)
 
-server_test: server_test.c
-	$(CC) $(CFLAGS) server_test.c -o server_test $(LDFLAGS)
+server_test: Test_code/Socket_test_code/server_test.c
+	$(CC) $(CFLAGS) Test_code/Socket_test_code/server_test.c -o server_test $(LDFLAGS)
 
-uart_test: uart_test.c
-	$(CC) $(CFLAGS) uart_test.c -o uart_test $(LDFLAGS)
+uart_test: Test_code/Uart_loopback_test_code/uart_test.c
+	$(CC) $(CFLAGS) Test_code/Uart_loopback_test_code/uart_test.c -o uart_test $(LDFLAGS)
+
+reader_test: Test_code/Message_queue_test_code/reader_test.c
+	$(CC) $(CFLAGS) Test_code/Message_queue_test_code/reader_test.c -o reader_test $(LDFLAGS)
+
+writer_test: Test_code/Message_queue_test_code/writer_test.c
+	$(CC) $(CFLAGS) Test_code/Message_queue_test_code/writer_test.c -o writer_test $(LDFLAGS)
 
 clean:
-	rm -f *.o aesdclient aesdserver client_test server_test uart_test 
+	rm -f *.o aesdclient aesdserver client_test server_test uart_test reader_test writer_test
 
 
 
