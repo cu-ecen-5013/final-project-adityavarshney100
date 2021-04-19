@@ -35,7 +35,7 @@ struct mesg_buffer {
 void func(int sockfd) 
 { 
 	//char buff[MAX]; //using message queue instead of this buffer
-	//int n; 
+	int n; 
 	// infinite loop for chat 
 	for (;;) { 
 		//bzero(buff, MAX); 
@@ -45,11 +45,12 @@ void func(int sockfd)
 
 		//message queue
 		message.mesg_type = 1;
-		msgsnd(msgid,&message,sizeof(message),0);
+		msgsnd(msgid,&messgae,sizeof(message),0);
 		// print buffer which contains the client contents 
 		printf("From client: %s\t To client : ", message.mesg_text); 
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
 		} 
+	} 
 } 
 
 // Driver function 
