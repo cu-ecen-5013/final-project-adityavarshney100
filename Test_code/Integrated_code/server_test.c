@@ -46,20 +46,20 @@ void delay(int time)
 void func(int sockfd) 
 { 
 	//char buff[MAX]; //using message queue instead of this buffer
-	//int n; 
+	int n; 
 	// infinite loop for chat 
-	for (;;) { 
+	while(1)
+	{ 
 		//bzero(buff, MAX); 
-
 		// read the message from client and copy it in buffer 
 		//read(sockfd, message.mesg_text, sizeof(message.mesg_text)); 
 
 		//message queue
-		message.mesg_type = 1;
-		msgrcv(msgid,&message,sizeof(message),1,0);
+		msgrcv(msgid,&message,sizeof(message),n,0);
 		// print buffer which contains the client contents 
-		printf("From client: %s\t To client : ", message.mesg_text); 
+		printf("From client: %s\n", message.mesg_text); 
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
+		n++;
 
 		} 
 } 
@@ -67,7 +67,6 @@ void func(int sockfd)
 // Driver function 
 int main() 
 { 
-
 		gpio_export();
 	gpio_direction();
 	for(int j=0;j<10;j++)
@@ -131,11 +130,6 @@ int main()
 	} 
 	else
 		printf("server acccept the client...\n"); 
-	
-
-
-
-
 	
 
 	// Function for chatting between client and server 
