@@ -17,7 +17,7 @@
 #include <sys/msg.h> 
 #include <syslog.h>
 
-#include "gpio.h"
+#include "gpio.c"
 
 
 #define MAX 80 
