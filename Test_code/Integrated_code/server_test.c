@@ -51,6 +51,17 @@ void func(int sockfd)
 		// print buffer which contains the client contents 
 		printf("From client: %s\t To client : ", message.mesg_text); 
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
+
+	char test1[10]={0};
+	gpio_export();
+	gpio_direction();
+	gpio_set();
+	scanf("%s",test1);
+	printf("Received 1st");
+	gpio_clear();
+	scanf("%s",test1);
+	printf("Received 2nd");
+	gpio_unexport();
 		} 
 } 
 
@@ -108,13 +119,16 @@ int main()
 		printf("server acccept the client...\n"); 
 	
 
-	int k=0;
+	char test[10]={0};
 	gpio_export();
 	gpio_direction();
 	gpio_set();
-	scanf("%d",&k);
+	scanf("%s",test);
+	printf("Received 1st");
 	gpio_clear();
-	scanf("%d",&k);
+	scanf("%s",test);
+	printf("Received 2nd");
+	gpio_unexport();
 
 
 	
