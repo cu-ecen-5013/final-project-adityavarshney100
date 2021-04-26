@@ -38,7 +38,7 @@ final_client: Test_code/Integrated_code/client_test.c
 	$(CC) $(CFLAGS) Test_code/Integrated_code/client_test.c -o final_client $(LDFLAGS)
 
 clean:
-	rm -f *.o aesdclient aesdserver client_test server_test uart_test reader_test writer_test
+	rm -f *.o aesdclient aesdserver client_test server_test uart_test reader_test writer_test final_server final_client
 
 
 
