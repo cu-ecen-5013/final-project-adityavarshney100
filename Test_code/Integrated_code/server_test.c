@@ -48,7 +48,6 @@ void func(int sockfd)
 	//char buff[MAX]; //using message queue instead of this buffer
 	int n=1; 
 	printf("In func\n");	
-	delay(100);
 	// infinite loop for chat 
 	while(1)
 	{ 
@@ -56,9 +55,8 @@ void func(int sockfd)
 		// read the message from client and copy it in buffer 
 		//read(sockfd, message.mesg_text, sizeof(message.mesg_text)); 
 		printf("In read loop"); 
-	delay(100);
 		//message queue
-		msgrcv(msgid,&message,sizeof(message),n,0);
+		msgrcv(msgid,&message,10,n,0);
 		// print buffer which contains the client contents 
 		printf("From client: %s\n", message.mesg_text); 
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
