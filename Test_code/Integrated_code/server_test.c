@@ -53,15 +53,15 @@ void func(int sockfd)
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
 
 	char test1[10]={0};
-	gpio_export();
-	gpio_direction();
+	//gpio_export();
+	//gpio_direction();
 	gpio_set();
 	scanf("%s",test1);
 	printf("Received 1st");
 	gpio_clear();
 	scanf("%s",test1);
 	printf("Received 2nd");
-	gpio_unexport();
+	//gpio_unexport();
 		} 
 } 
 
@@ -128,7 +128,7 @@ int main()
 	gpio_clear();
 	scanf("%s",test);
 	printf("Received 2nd");
-	gpio_unexport();
+	//gpio_unexport();
 
 
 	
