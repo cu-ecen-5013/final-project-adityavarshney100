@@ -56,7 +56,7 @@ void func(int sockfd)
 		//read(sockfd, message.mesg_text, sizeof(message.mesg_text)); 
 		printf("In read loop"); 
 		//message queue
-		msgrcv(msgid,&message,10,n,0);
+		msgrcv(msgid,&message,sizeof(message),0,0);
 		// print buffer which contains the client contents 
 		printf("From client: %s\n", message.mesg_text); 
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
