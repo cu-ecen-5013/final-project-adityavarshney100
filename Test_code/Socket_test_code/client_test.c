@@ -54,8 +54,11 @@ int main()
 	bzero(&servaddr, sizeof(servaddr));
 
 	// assign IP, PORT
+	char ip_addr[24]={0};
+	printf("Enter IP address of the server: ");
+	scanf("%s",ip_addr);
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr = inet_addr("192.168.0.2");
+	servaddr.sin_addr.s_addr = inet_addr(ip_addr);
 	servaddr.sin_port = htons(PORT);
 
 	// connect the client socket to server socket
