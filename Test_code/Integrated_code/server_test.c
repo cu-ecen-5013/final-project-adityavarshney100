@@ -13,7 +13,7 @@
 #include <sys/types.h> 
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <time.h>
 #include <sys/msg.h> 
 #include <syslog.h>
 
@@ -32,6 +32,15 @@ struct mesg_buffer {
 	char mesg_text[100];
 } message;
 
+
+void delay(int time)
+{
+
+	int ms = 1000*time;
+	clock_t start_time = clock();
+	while(clock() < start_time+ ms)
+	;
+}
 
 // Function designed for chat between client and server. 
 void func(int sockfd) 
@@ -52,22 +61,27 @@ void func(int sockfd)
 		printf("From client: %s\t To client : ", message.mesg_text); 
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
 
-	char test1[10]={0};
-	//gpio_export();
-	//gpio_direction();
-	gpio_set();
-	scanf("%s",test1);
-	printf("Received 1st");
-	gpio_clear();
-	scanf("%s",test1);
-	printf("Received 2nd");
-	//gpio_unexport();
 		} 
 } 
 
 // Driver function 
 int main() 
 { 
+
+		gpio_export();
+	gpio_direction();
+	for(int j=0;j<10;j++)
+	{
+	gpio_set();
+	delay(100);
+	gpio_clear();
+	delay(100);
+	}
+
+
+
+
+
 	int sockfd, connfd, len; 
 	struct sockaddr_in servaddr, cli; 
 
@@ -119,17 +133,7 @@ int main()
 		printf("server acccept the client...\n"); 
 	
 
-	char test[10]={0};
-	gpio_export();
-	gpio_direction();
-	gpio_set();
-	scanf("%s",test);
-	printf("Received 1st");
-	gpio_clear();
-	printf("GPIO Clear done");
-	scanf("%s",test);
-	printf("Received 2nd");
-	//gpio_unexport();
+
 
 
 	
