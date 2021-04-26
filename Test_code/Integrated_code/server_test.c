@@ -126,6 +126,7 @@ int main()
 	scanf("%s",test);
 	printf("Received 1st");
 	gpio_clear();
+	printf("GPIO Clear done");
 	scanf("%s",test);
 	printf("Received 2nd");
 	//gpio_unexport();

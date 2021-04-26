@@ -36,6 +36,7 @@ uint8_t gpio_set()
 
 uint8_t gpio_clear()
 {
+	printf("GPIO Clear");
 	system("echo 0 > /sys/class/gpio/gpio66/value");
 	system("echo 0 > /sys/class/gpio/gpio67/value");
 	return 0;
