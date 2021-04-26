@@ -46,7 +46,7 @@ void delay(int time)
 void func(int sockfd) 
 { 
 	//char buff[MAX]; //using message queue instead of this buffer
-	int n; 
+	int n=01; 
 	// infinite loop for chat 
 	while(1)
 	{ 
@@ -60,7 +60,6 @@ void func(int sockfd)
 		printf("From client: %s\n", message.mesg_text); 
 		memset(message.mesg_text, 0x0, (100*sizeof(char)));
 		n++;
-
 		} 
 } 
 
