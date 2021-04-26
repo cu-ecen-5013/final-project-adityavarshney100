@@ -53,7 +53,7 @@ void func(int sockfd)
 		//bzero(buff, MAX); 
 		// read the message from client and copy it in buffer 
 		//read(sockfd, message.mesg_text, sizeof(message.mesg_text)); 
-
+		printf("In read loop"); 
 		//message queue
 		msgrcv(msgid,&message,sizeof(message),n,0);
 		// print buffer which contains the client contents 
