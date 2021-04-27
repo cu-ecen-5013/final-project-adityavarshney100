@@ -46,7 +46,7 @@ void delay(int time)
 void func(int sockfd) 
 { 
 	char buff[MAX]; //using message queue instead of this buffer
-	int n=1; 
+	//int n=1; 
 	printf("In func\n");	
 	// infinite loop for chat 
 	while(1)
@@ -58,9 +58,6 @@ void func(int sockfd)
 		printf("Fingerprint id#: %d\t", buff[0]); 
 		printf("Fingerprint Authorized: %d\t", buff[1]); 
 		printf("IR Sensor value: %d\n", buff[2]); 
-
-		n = 0; 
-		}
 	}
 }
 
