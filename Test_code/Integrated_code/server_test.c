@@ -16,12 +16,33 @@
 #include <time.h>
 #include <sys/msg.h> 
 #include <syslog.h>
+#include <stdbool.h>
+#include <errno.h>
+#include <signal.h>
 
 #include "gpio.c"
 
 #define MAX 12 
 #define PORT 9000 
 #define SA struct sockaddr 
+
+int sockfd;
+bool caught_sigint = false;
+bool caught_sigterm = false;
+
+static void signal_handler ( int signal_number )
+{
+    int errno_saved = errno;
+    if ( signal_number == SIGINT || signal_number == SIGTERM)
+	{
+
+		caught_sigint = true;
+		close(sockfd); 
+		gpio_unexport();
+		printf("Exit Gracefully");
+	}
+    errno = errno_saved;
+}
 
 
 int msgid;
@@ -83,7 +104,23 @@ int main()
 	delay(100);
 	}
 
-	int sockfd, connfd, len; 
+	/*******************/
+	//SIGNAL Handler initialisation
+	struct sigaction new_action;
+	   // bool success = true;
+	    memset(&new_action,0,sizeof(struct sigaction));
+	    new_action.sa_handler=signal_handler;
+	    if( sigaction(SIGTERM, &new_action, NULL) != 0 ) {
+		perror("Failed");
+		//success = false;
+	    }
+	    if( sigaction(SIGINT, &new_action, NULL) ) {
+		perror("Failed");
+		//success = false;
+	    }
+	/*********************/
+
+	int connfd, len; 
 	struct sockaddr_in servaddr, cli; 
 
 
@@ -145,9 +182,13 @@ int main()
 	// After chatting close the socket 
 	close(sockfd); 
 
-	while(1);
-	
-	gpio_unexport();
-	
+	while(1)
+	{
+		if(caught_sigint)
+		{
+			printf("caught sigint");
+			break;
+		}
+	}
 } 
 
