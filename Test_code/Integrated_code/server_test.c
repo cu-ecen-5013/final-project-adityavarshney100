@@ -53,21 +53,21 @@ void func(int sockfd)
 	{ 
 		//bzero(buff, MAX); 
 		// read the message from client and copy it in buffer 
-		//read(sockfd, message.mesg_text, sizeof(message.mesg_text)); 
+		read(sockfd, message.mesg_text, sizeof(message.mesg_text)); 
 		printf("In read loop"); 
 		//message queue
 		msgrcv(msgid,&message,sizeof(message),0,0);
 		// print buffer which contains the client contents 
-		printf("From client: %s\n", message.mesg_text); 
-		memset(message.mesg_text, 0x0, (100*sizeof(char)));
+		printf("From client: %s\n", message.mesg_text);
+		//memset(message.mesg_text, 0x0, (100*sizeof(char)));
 		n++;
-		} 
-} 
+	}
+}
 
 // Driver function 
 int main() 
 { 
-		gpio_export();
+	gpio_export();
 	gpio_direction();
 	for(int j=0;j<10;j++)
 	{
@@ -77,17 +77,10 @@ int main()
 	delay(100);
 	}
 
-
-
-
-
 	int sockfd, connfd, len; 
 	struct sockaddr_in servaddr, cli; 
 
-	//initialization for message queues
-	key_t key;
-	key = ftok("progfile",65);
-	msgid = msgget(key,0666 | IPC_CREAT);
+
 	
 
 	// socket create and verification 
@@ -131,6 +124,11 @@ int main()
 	else
 		printf("server acccept the client...\n"); 
 	
+
+	//initialization for message queues
+	key_t key;
+	key = ftok("progfile",65);
+	msgid = msgget(key,0666 | IPC_CREAT);
 
 	// Function for chatting between client and server 
 	func(connfd); 
