@@ -45,22 +45,22 @@ void delay(int time)
 // Function designed for chat between client and server. 
 void func(int sockfd) 
 { 
-	//char buff[MAX]; //using message queue instead of this buffer
+	char buff[MAX]; //using message queue instead of this buffer
 	int n=1; 
 	printf("In func\n");	
 	// infinite loop for chat 
 	while(1)
 	{ 
-		//bzero(buff, MAX); 
+		bzero(buff, MAX); 
 		// read the message from client and copy it in buffer 
-		read(sockfd, message.mesg_text, sizeof(message.mesg_text)); 
-		printf("In read loop"); 
-		//message queue
-		msgrcv(msgid,&message,sizeof(message),0,0);
+		read(sockfd, buff, sizeof(buff)); 
 		// print buffer which contains the client contents 
-		printf("From client: %s\n", message.mesg_text);
-		//memset(message.mesg_text, 0x0, (100*sizeof(char)));
-		n++;
+		printf("Fingerprint id#: %d\t", buff[0]); 
+		printf("Fingerprint Authorized: %d\t", buff[1]); 
+		printf("IR Sensor value: %d\n", buff[2]); 
+
+		n = 0; 
+		}
 	}
 }
 
