@@ -174,13 +174,7 @@ int main()
 	msgid = msgget(key,0666 | IPC_CREAT);
 
 	// Function for chatting between client and server 
-	func(connfd); 
-	
-
-	
-
-	// After chatting close the socket 
-	close(sockfd); 
+	func(connfd);  
 
 	while(1)
 	{
