@@ -27,17 +27,27 @@ uint8_t gpio_read()
 	return 0;
 }
 
-uint8_t gpio_set()
+uint8_t gpio_setgreen()
 {
 	system("echo 1 > /sys/class/gpio/gpio66/value");
+	return 0;
+}
+
+uint8_t gpio_setred()
+{
 	system("echo 1 > /sys/class/gpio/gpio67/value");
 	return 0;
 }
 
-uint8_t gpio_clear()
+uint8_t gpio_cleargreen()
 {
-	printf("GPIO Clear");
 	system("echo 0 > /sys/class/gpio/gpio66/value");
+	return 0;
+}
+uint8_t gpio_clearred()
+{
 	system("echo 0 > /sys/class/gpio/gpio67/value");
 	return 0;
 }
+
+

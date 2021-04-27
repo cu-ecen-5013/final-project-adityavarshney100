@@ -16,13 +16,33 @@
 #include <time.h>
 #include <sys/msg.h> 
 #include <syslog.h>
+#include <stdbool.h>
+#include <errno.h>
+#include <signal.h>
 
 #include "gpio.c"
 
-
-#define MAX 80 
+#define MAX 12 
 #define PORT 9000 
 #define SA struct sockaddr 
+
+int sockfd;
+bool caught_sigint = false;
+bool caught_sigterm = false;
+
+static void signal_handler ( int signal_number )
+{
+    int errno_saved = errno;
+    if ( signal_number == SIGINT || signal_number == SIGTERM)
+	{
+
+		caught_sigint = true;
+		close(sockfd); 
+		gpio_unexport();
+		printf("Exit Gracefully");
+	}
+    errno = errno_saved;
+}
 
 
 int msgid;
@@ -45,50 +65,65 @@ void delay(int time)
 // Function designed for chat between client and server. 
 void func(int sockfd) 
 { 
-	//char buff[MAX]; //using message queue instead of this buffer
-	//int n; 
+	char buff[MAX]; //using message queue instead of this buffer
+	//int n=1; 
+	printf("In func\n");	
 	// infinite loop for chat 
-	for (;;) { 
-		//bzero(buff, MAX); 
-
+		bzero(buff, MAX); 
 		// read the message from client and copy it in buffer 
-		//read(sockfd, message.mesg_text, sizeof(message.mesg_text)); 
-
-		//message queue
-		message.mesg_type = 1;
-		msgrcv(msgid,&message,sizeof(message),1,0);
+		read(sockfd, buff, sizeof(buff));
 		// print buffer which contains the client contents 
-		printf("From client: %s\t To client : ", message.mesg_text); 
-		memset(message.mesg_text, 0x0, (100*sizeof(char)));
-
-		} 
-} 
+		printf("Fingerprint id#: %d\t", buff[0]); 
+		printf("Fingerprint Authorized: %d\t", buff[1]); 
+		printf("IR Sensor value: %d\n", buff[2]);
+	
+		if(buff[1] == 1)
+		{
+			gpio_setgreen();
+			gpio_clearred();
+		}
+		else
+		{
+			gpio_cleargreen();
+			gpio_setred();
+		}
+}
 
 // Driver function 
 int main() 
 { 
-
-		gpio_export();
+	gpio_export();
 	gpio_direction();
 	for(int j=0;j<10;j++)
 	{
-	gpio_set();
+	gpio_setgreen();
+	gpio_setred();
 	delay(100);
-	gpio_clear();
+	gpio_cleargreen();
+	gpio_clearred();
 	delay(100);
 	}
 
+	/*******************/
+	//SIGNAL Handler initialisation
+	struct sigaction new_action;
+	   // bool success = true;
+	    memset(&new_action,0,sizeof(struct sigaction));
+	    new_action.sa_handler=signal_handler;
+	    if( sigaction(SIGTERM, &new_action, NULL) != 0 ) {
+		perror("Failed");
+		//success = false;
+	    }
+	    if( sigaction(SIGINT, &new_action, NULL) ) {
+		perror("Failed");
+		//success = false;
+	    }
+	/*********************/
 
-
-
-
-	int sockfd, connfd, len; 
+	int connfd, len; 
 	struct sockaddr_in servaddr, cli; 
 
-	//initialization for message queues
-	key_t key;
-	key = ftok("progfile",65);
-	msgid = msgget(key,0666 | IPC_CREAT);
+
 	
 
 	// socket create and verification 
@@ -133,15 +168,27 @@ int main()
 		printf("server acccept the client...\n"); 
 	
 
-
-
-
-	
+	//initialization for message queues
+	key_t key;
+	key = ftok("progfile",65);
+	msgid = msgget(key,0666 | IPC_CREAT);
 
 	// Function for chatting between client and server 
 	func(connfd); 
+	
+
+	
 
 	// After chatting close the socket 
 	close(sockfd); 
+
+	while(1)
+	{
+		if(caught_sigint)
+		{
+			printf("caught sigint");
+			break;
+		}
+	}
 } 
 
