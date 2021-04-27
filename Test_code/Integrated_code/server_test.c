@@ -19,8 +19,7 @@
 
 #include "gpio.c"
 
-
-#define MAX 80 
+#define MAX 12 
 #define PORT 9000 
 #define SA struct sockaddr 
 
@@ -53,11 +52,22 @@ void func(int sockfd)
 	{ 
 		bzero(buff, MAX); 
 		// read the message from client and copy it in buffer 
-		read(sockfd, buff, sizeof(buff)); 
+		read(sockfd, buff, sizeof(buff));
 		// print buffer which contains the client contents 
 		printf("Fingerprint id#: %d\t", buff[0]); 
 		printf("Fingerprint Authorized: %d\t", buff[1]); 
-		printf("IR Sensor value: %d\n", buff[2]); 
+		printf("IR Sensor value: %d\n", buff[2]);
+	
+		if(buff[1] == 1)
+		{
+			gpio_setgreen();
+			gpio_clearred();
+		}
+		else
+		{
+			gpio_cleargreen();
+			gpio_setred();
+		}
 	}
 }
 
@@ -68,9 +78,11 @@ int main()
 	gpio_direction();
 	for(int j=0;j<10;j++)
 	{
-	gpio_set();
+	gpio_setgreen();
+	gpio_setred();
 	delay(100);
-	gpio_clear();
+	gpio_cleargreen();
+	gpio_clearred();
 	delay(100);
 	}
 

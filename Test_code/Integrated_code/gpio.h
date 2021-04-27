@@ -8,6 +8,11 @@ uint8_t gpio_direction();
 
 uint8_t gpio_read();
 
-uint8_t gpio_set();
+uint8_t gpio_setgreen();
 
-uint8_t gpio_clear();
+uint8_t gpio_setred();
+
+uint8_t gpio_cleargreen();
+
+uint8_t gpio_clearred();
+
