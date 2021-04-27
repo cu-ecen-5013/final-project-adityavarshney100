@@ -48,8 +48,6 @@ void func(int sockfd)
 	//int n=1; 
 	printf("In func\n");	
 	// infinite loop for chat 
-	while(1)
-	{ 
 		bzero(buff, MAX); 
 		// read the message from client and copy it in buffer 
 		read(sockfd, buff, sizeof(buff));
@@ -68,7 +66,6 @@ void func(int sockfd)
 			gpio_cleargreen();
 			gpio_setred();
 		}
-	}
 }
 
 // Driver function 
@@ -141,6 +138,9 @@ int main()
 
 	// Function for chatting between client and server 
 	func(connfd); 
+	
+
+	gpio_unexport();
 
 	// After chatting close the socket 
 	close(sockfd); 
