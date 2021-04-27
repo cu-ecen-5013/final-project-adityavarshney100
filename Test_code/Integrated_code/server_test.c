@@ -140,12 +140,14 @@ int main()
 	func(connfd); 
 	
 
-	gpio_unexport();
+	
 
 	// After chatting close the socket 
 	close(sockfd); 
 
 	while(1);
+	
+	gpio_unexport();
 	
 } 
 
